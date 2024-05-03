@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0",>
+    <title>Countdown & Quotes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-image: url("https://images.pexels.com/photos/100733/pexels-photo-100733.jpeg?auto=compress&cs=tinysrgb&w=600https://cdn.pixabay.com/photo/2014/12/08/14/23/pocket-watch-560937_1280.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    width: 100%;
+    height: 110vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.main h1{
+    color: white;
+}
+.btn{
+    display: flex;
+    margin: 10px;
+}
+.btn button{
+    margin: 20px;
+ 
+}
+.main input{
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+}
+.main button{
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: black;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    
+}
+.main button:hover{
+    background-color:rgb(177, 170, 170);
+}
+.main #countdown{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.main #countdown div{
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 5px;
+    font-size: 36px;
+    background-color: black;
+    color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+.main #quote{
+    font-size: 24px;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+</style>
+
+<body>
+    <div class="main">
+        <h1>1 Minute Countdown & Quotes</h1>
+        <div id="countdown">     
+            <div id="countdown-seconds">0</div>
+        </div>
+        <div class="btn">
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </div>   
+        <div id="quote">Quote of the day:</div>
+    </div>
+
+</body>
+
+<script>
+
+    const quotes = [
+    "Dream big, work hard, stay focused, and surround yourself with positivity.",
+"Believe in yourself, chase your dreams, and never give up.",
+"Success comes to those who persevere through challenges with determination.",
+"Hard work, dedication, and perseverance pave the path to success.",
+"Opportunities are endless for those who seek them with passion.",
+"Stay positive, stay focused, and keep moving forward no matter what.",
+"Great achievements require patience, persistence, and a relentless pursuit.",
+"Every setback is a setup for a comeback, keep pushing forward.",
+"Your attitude determines your altitude, aim high and stay positive.",
+"The road to success is paved with determination, courage, and resilience.",
+    ]
+    
+    const quote = document.querySelector('#quote')
+    
+    function showQuote(){
+       setInterval(()=>{
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)]
+        quote.innerText = randomQuote;
+       },10000)
+    }
+    
+    showQuote()
+    
+    window.onload = () =>{
+        document.querySelector('#start').onclick = start;
+    }
+    
+    function start()
+    {
+        const time = 61;
+    
+        const stop = document.querySelector('#stop')
+        
+        const endTime = new Date(Date.now() + time * 1000);
+    
+        const interval = setInterval(() => calculateTime(endTime), 1000);
+    
+        stop.addEventListener('click', () => {
+            clearInterval(interval);
+        })
+    }
+    
+    function calculateTime(endTime){
+        const currentTime = new Date
+    
+    
+        const seconds = document.querySelector('#countdown-seconds')
+    
+        if (endTime > currentTime){
+            const timeLeft = (endTime - currentTime) / 1000;
+    
+            console.log(timeLeft)
+        
+     
+            seconds.innerText = Math.floor(timeLeft % 60)
+        } else{
+        
+            seconds.innerText = 0
+        }
+    }
+    
+    function reset(){
+     
+        document.querySelector('#countdown-seconds').innerText = 0;
+    
+        quote.innerText = "Quote of the day:"
+    }
+    
+    
+    document.querySelector('#reset').onclick = reset;
+    
+    document.querySelector('#start').onclick = start;
+    
+        </script>
+
+</html>
