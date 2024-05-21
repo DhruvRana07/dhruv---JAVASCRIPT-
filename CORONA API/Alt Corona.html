@@ -5,70 +5,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COVID-19 Statistics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        header {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #343a40;
+            font-size: 20px;
+        }
+
+        .stats-container {
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        .stats-container h3 {
+            margin-top: 0;
+            color: #343a40;
+            font-size: 18px;
+        }
+
+        .stats-container div {  
+            margin-top: 5px;
+            font-size: 16px;
+            color: #6c757d;
+        }
+    </style>
 </head>
-
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f8f9fa;
-    }
-
-    /* html {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    } */
-
-    header {
-        background-color: #343a40;
-        color: #ffffff;
-        padding: 20px;
-        text-align: center;
-    }
-
-    h1 {
-        margin: 0;
-        font-size: 24px;
-    }
-
-    main {
-        padding: 20px;
-    }
-
-    section {
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-        padding: 20px;
-    }
-
-    h2 {
-        margin-top: 0;
-        color: #343a40;
-        font-size: 20px;
-    }
-
-    .stats-container {
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 15px;
-        margin-bottom: 10px;
-    }
-
-    .stats-container h3 {
-        margin-top: 0;
-        color: #343a40;
-        font-size: 18px;
-    }
-
-    .stats-container div {  
-        margin-top: 5px;
-        font-size: 16px;
-        color: #6c757d;
-    }
-</style>
 
 <body>
     <header>
@@ -81,7 +75,6 @@
             <div id="global-deaths"></div>
             <div id="global-recoveries"></div>
             <div id="global-foreign"></div>
-
         </section>
         <section id="regional-stats">
             <h2>Regional Statistics</h2>
@@ -89,7 +82,6 @@
         </section>
     </main>
     <script>
-
         document.addEventListener("DOMContentLoaded", function () {
             fetch('https://api.rootnet.in/covid19-in/stats/latest')
                 .then(response => response.json())
@@ -101,8 +93,7 @@
                     document.getElementById('global-cases').innerHTML = `<div>Total Cases: ${globalStats.total}</div>`;
                     document.getElementById('global-deaths').innerHTML = `<div>Total Deaths: ${globalStats.deaths}</div>`;
                     document.getElementById('global-recoveries').innerHTML = `<div>Total Recoveries: ${globalStats.discharged}</div>`;
-                    document.getElementById('global-foreign').innerHTML = `<div>Total Foreign: ${globalStats.foreign}</div>`;
-
+                    document.getElementById('global-foreign').innerHTML = `<div>Total Foreign: ${globalStats.confirmedCasesForeign}</div>`;
 
                     // Display regional statistics
                     const regionalList = document.getElementById('regional-list');
@@ -110,12 +101,12 @@
                         const regionDiv = document.createElement('div');
                         regionDiv.classList.add('stats-container');
                         regionDiv.innerHTML = `
-                <h3>${region.loc}</h3>
-                <div>Total Cases: ${region.totalConfirmed}</div>
-                <div>Total Deaths: ${region.deaths}</div>
-                <div>Total Recoveries: ${region.discharged}</div>
-                <div>Total Foreign: ${region.confirmedCasesForeign}</div>
-            `;
+                            <h3>${region.loc}</h3>
+                            <div>Total Cases: ${region.totalConfirmed}</div>
+                            <div>Total Deaths: ${region.deaths}</div>
+                            <div>Total Recoveries: ${region.discharged}</div>
+                            <div>Total Foreign: ${region.confirmedCasesForeign}</div>
+                        `;
                         regionalList.appendChild(regionDiv);
                     });
                 })
